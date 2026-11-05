@@ -1,4 +1,4 @@
-<!doctype html><html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>EWAS 1.0.2 · Editor &amp; Live</title><style>
+<!doctype html><html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>EWAS 1.0.3 · Editor &amp; Live</title><style>
 :root{font-family:system-ui,-apple-system,Segoe UI,Arial,sans-serif;color:#17243a;background:#f3f6fa}*{box-sizing:border-box}body{max-width:1120px;margin:0 auto;padding:22px}h1{margin:0 0 5px;font-size:1.9rem}h2{font-size:1.12rem;margin:0 0 12px}.muted{color:#627187;font-size:.91rem;line-height:1.5}.layout{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:18px}.panel{background:white;border:1px solid #dfe5ed;border-radius:14px;padding:19px;box-shadow:0 3px 12px #17203308}.full{grid-column:1/-1}label{display:block;font-weight:650;margin:9px 0 6px}textarea,input{font:inherit;border:1px solid #c8d3e0;border-radius:8px;padding:11px;width:100%;background:white;color:#17243a}textarea{resize:vertical;min-height:145px}#route{height:90px;min-height:90px}input[type=checkbox]{width:auto;accent-color:#174a80}button{font:inherit;cursor:pointer;background:#194e83;border:0;border-radius:8px;padding:10px 13px;color:white;font-weight:650;margin:8px 7px 0 0}button.secondary{background:#e8eef5;color:#233d59}button.danger{background:#fbe9e9;color:#8d2d2d}button.small{padding:7px 10px;margin:0}#copy{margin:0 0 12px 0}.output{font-size:10px;line-height:1.25;padding:5px 7px;min-height:24px;background:#f7f9fc;border:1px solid #e0e7f0;border-radius:9px;white-space:pre-wrap;overflow-wrap:anywhere}.accordion{border:1px solid #dfe5ed;border-radius:9px;margin:9px 0;overflow:hidden}.accordion summary{cursor:pointer;font-weight:700;background:#f7f9fc}.accordion-body{padding:13px}.combo-row{grid-template-columns:minmax(90px,115px) minmax(0,1fr) minmax(0,1fr) auto}.waypoint-row{grid-template-columns:minmax(0,1fr) minmax(0,1fr) auto}.rule-name-wrap{margin:2px 0 10px}.rule-name-wrap label{font-size:.82rem}.rule-name-wrap input{padding:7px 9px}.subrule-name label{white-space:nowrap;margin:0;font-size:.8rem}.subrule-name input{flex:1;min-width:0;padding:6px 8px}.accordion-body>.rule-name-wrap{max-width:460px}.rule-row{display:grid;grid-template-columns:minmax(95px,125px) minmax(180px,1fr) auto;gap:8px;align-items:center;margin:4px 0;padding:6px 8px;background:#f7f9fc;border-radius:7px}.rule-row label{margin:0 0 3px}.rule-editor{max-height:260px;overflow-y:auto;border:1px solid #dfe5ed;border-radius:9px;padding:5px 8px;background:#fff}.rule-row .delete{align-self:end}.switch{display:flex;gap:9px;align-items:center;font-weight:600}.switch input{margin:0}.subhead{font-size:1rem;font-weight:700;margin:20px 0 6px}.status:not(:empty){margin-top:10px}.bar{display:flex;gap:8px;flex-wrap:wrap;align-items:center}@media(max-width:720px){body{padding:12px}.layout{grid-template-columns:1fr}.full{grid-column:auto}.rule-row,.combo-row,.waypoint-row{grid-template-columns:1fr}.rule-row .delete{justify-self:start}}
 
 /* v5.6: gleiche Feldbreiten und kompakte, umbenennbare Überschriften */
@@ -412,7 +412,7 @@ main.layout{margin-top:16px}
  <button type="button" class="ewas-tab" data-ewas-editor-tab="lists" aria-selected="false">Airport Lists</button>
  <button type="button" class="ewas-tab" data-ewas-editor-tab="rules" aria-selected="false">Rulebook</button>
  <button type="button" class="ewas-tab" data-ewas-editor-tab="descriptions" aria-selected="false">Descriptions</button>
- <span class="ewas-nav-version" aria-label="Current version">Version 1.0.2</span>
+ <span class="ewas-nav-version" aria-label="Current version">Version 1.0.3</span>
 </nav>
 
 <nav class="ewas-tabs ewas-sub-tabs" id="liveSubnav" aria-label="Live sections" hidden="">
@@ -421,7 +421,7 @@ main.layout{margin-top:16px}
  <button type="button" class="ewas-tab" data-ewas-live-tab="depdest" aria-selected="false">DEP &amp; DEST (ALTN)</button>
  <button type="button" class="ewas-tab" data-ewas-live-tab="eras" aria-selected="false">ERAs</button>
  <button type="button" class="ewas-tab" data-ewas-live-tab="calc" aria-selected="false">CALC</button>
- <div class="ewas-live-version-stack"><span class="ewas-nav-version" aria-label="Current version">Version 1.0.2</span><span class="ewas-live-upload-dates" role="status" aria-label="AAL publication dates"><span id="live330LastUpload" class="aal-upload-date unknown">A330 AAL published –</span><span id="live350LastUpload" class="aal-upload-date unknown">A350 AAL published –</span></span></div>
+ <div class="ewas-live-version-stack"><span class="ewas-nav-version" aria-label="Current version">Version 1.0.3</span><span class="ewas-live-upload-dates" role="status" aria-label="AAL publication dates"><span id="live330LastUpload" class="aal-upload-date unknown">A330 AAL published –</span><span id="live350LastUpload" class="aal-upload-date unknown">A350 AAL published –</span></span></div>
 </nav><main class="layout">
 <div class="ewas-mode-panel" id="tab-editor">
  <div class="ewas-tab-panel" id="tab-editor-config">
@@ -630,11 +630,15 @@ document.querySelectorAll('[data-ewas-editor-tab]').forEach(b=>b.addEventListene
 }));
 document.querySelectorAll('[data-ewas-live-tab]').forEach(b=>b.addEventListener('click',()=>{
  ewasSubSelection.live=b.dataset.ewasLiveTab;activateEwasNavigation();
+ // These panes are lazily displayed. Refresh their rows on entry so they
+ // always represent the route currently visible in OFP & ACFT.
+ if(ewasSubSelection.live==='depdest'&&typeof renderDepDest==='function')renderDepDest();
+ if(ewasSubSelection.live==='eras'&&typeof renderERAs==='function')renderERAs();
 }));
 activateEwasNavigation();
 
 const $=id=>document.getElementById(id);
-const STORAGE_KEY='EWAS_live_snapshot_1793890313871'; // Keep prior SECU-test edits across updates
+const STORAGE_KEY='EWAS_live_snapshot_1793891776653'; // Keep prior SECU-test edits across updates
 const AIRCRAFT_KEY='ewas_selected_aircraft_v10_2';
 const EWAS_SECU_BASELINE_CODES='';
 const EWAS_INITIAL_AIRPORT_DATA={};
@@ -1531,9 +1535,27 @@ function refreshLiveDescriptions(){
   const key=item[0],node=findLiveDescriptionNode(item);if(!node)continue;
   const content=rules.liveDescriptions?.[key]??LIVE_DESCRIPTION_DEFAULTS[key]??'';
   if(key==='depdest'||key==='eras'){
-   // Keep the aircraft label live and dynamically updated.
-   const aircraft=node.querySelector('span[id]');
-   const parts=content.split('{ACFT}');node.replaceChildren(document.createTextNode(parts[0]||''));if(aircraft&&parts.length>1){node.append(aircraft,document.createTextNode(parts.slice(1).join('{ACFT}')));}
+   // The aircraft label is also used by the route table renderers. NEVER
+   // remove it when the user writes a description without {ACFT}.
+   const aircraftId=key==='depdest'?'depdestAircraft':'erasAircraft';
+   let aircraft=node.querySelector('#'+aircraftId);
+   if(!aircraft){
+    aircraft=document.createElement('span');
+    aircraft.id=aircraftId;
+   }
+   aircraft.textContent=selectedAircraft;
+   const marker='{ACFT}',position=content.indexOf(marker);
+   if(position<0){
+    // The user chose a fixed description. Keep the DOM anchor, but hide it.
+    aircraft.hidden=true;
+    node.replaceChildren(document.createTextNode(content),aircraft);
+   }else{
+    aircraft.hidden=false;
+    node.replaceChildren(
+     document.createTextNode(content.slice(0,position)),aircraft,
+     document.createTextNode(content.slice(position+marker.length))
+    );
+   }
   }else node.textContent=content;
   const input=document.querySelector('[data-live-description="'+key+'"]');if(input)input.value=content;
  }
@@ -1627,7 +1649,7 @@ function resetEraRoster(){
 function renderDepDest(){
  const target=$('depdestRows');if(!target)return;
  target.replaceChildren();
- $('depdestAircraft').textContent=selectedAircraft;
+ const depdestAircraftLabel=$('depdestAircraft');if(depdestAircraftLabel)depdestAircraftLabel.textContent=selectedAircraft;
  const tokens=$('route').value.trim().toUpperCase().split(/[\s,;]+/).filter(Boolean);
  if(tokens.length<2){
   $('depdestCount').textContent='· 0 airports';
@@ -1666,7 +1688,7 @@ function renderERAs(){
   if($('eraEditDialog').open)$('eraEditDialog').close();
  }
  target.replaceChildren();
- $('erasAircraft').textContent=selectedAircraft;
+ const erasAircraftLabel=$('erasAircraft');if(erasAircraftLabel)erasAircraftLabel.textContent=selectedAircraft;
  $('erasCount').textContent='· '+eraRoster.length+' airports';
  if(!eraRoster.length){
   const empty=document.createElement('div');empty.className='era-empty';
