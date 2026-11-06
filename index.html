@@ -819,7 +819,7 @@ document.querySelectorAll('[data-ewas-live-tab]').forEach(b=>b.addEventListener(
 activateEwasNavigation();
 
 const $=id=>document.getElementById(id);
-const STORAGE_KEY='EWAS_live_snapshot_1793999768780'; // Keep prior SECU-test edits across updates
+const STORAGE_KEY='EWAS_live_snapshot_1794000212946'; // Keep prior SECU-test edits across updates
 const AIRCRAFT_KEY='ewas_selected_aircraft_v10_2';
 const EWAS_SECU_BASELINE_CODES='';
 const EWAS_INITIAL_AIRPORT_DATA={};
@@ -1160,7 +1160,8 @@ function buildExportHtml(source,data,colleague,stamp){
  if(colleague){
   patched=patched.replace('<script>', '<script>window.EWAS_COLLEAGUE=true;');
   /* List 1 bleibt für die Berechnung intern erhalten. */
-  patched=patched.replace(/\/\/ v9\.5: AAL importer[\s\S]*?(?=<\/script>)/,'');
+  patched=patched.replace(/\/\/ v9\.5: AAL importer[\s\S]*?(?=\/\/ Rule 8 – independent)/,'');
+  if(!patched.includes('function renderHomebriefing()')||!patched.includes('function syncHomebriefingAirports()'))throw Error('Homebriefing code missing from exported Live file.');
   patched=patched.replace('</style>','/* Kollegenversion: Editor unsichtbar */\n.rules-panel{display:none!important}\n</style>');
   patched=patched.replace('</style>','#ewasModeNav,#editorSubnav,#tab-editor{display:none!important}</style>');
   patched=patched.replace('<details class="panel full aal-list-panel" id="enrouteAalSection">','<details class="panel full aal-list-panel" id="enrouteAalSection" hidden>');
@@ -2617,5 +2618,104 @@ async function enrichAalCountries(allRows){
   }
  }catch(error){/* Preserve ICAO-prefix country fallback and any stored coordinates. */}
 }
+
+// Rule 8 – independent of the aircraft-specific AAL, but dependent on valid OFP endpoints.
+function getRule8Lists(){return rules.assRule8||{};}
+function evaluateAssRequirement(dep,dest,ex){
+ if(!validCode(dep)||!validCode(dest)||!validCode(ex))return {status:'pending',reason:'Enter a valid OFP route and a four-letter EX ICAO code.'};
+ const r=getRule8Lists(),has=(key,code)=>(r[key]||[]).includes(code);
+ const required=[];
+ if(!has('depExceptions',dep))required.push('Rule 8.1');
+ if(has('destRequired',dest))required.push('Rule 8.2');
+ if(has('depConditional',dep)&&!has('exExceptions',ex))required.push('Rule 8.3');
+ if(required.length)return {status:'required',reason:required.join(' + ')};
+ if(has('depNoAss',dep)&&has('exNoAss',ex))return {status:'not-required',reason:'Rule 8.4'};
+ return {status:'pending',reason:'No Rule 8 condition matches. Check the configured rules.'};
+}
+function renderHomebriefing(){
+ const route=getOFPRoute(),confirmed=isAircraftConfirmed(),ex=$('homeEx').value.trim().toUpperCase();
+ $('homebriefingRoute').textContent=route?route.dep+' → '+route.dest+(confirmed?'':' · Confirm aircraft in OFP & ACFT'):'Enter and confirm an OFP route under OFP & ACFT.';
+ $('homebriefingAircraft').textContent=confirmed?typeLabel(selectedAircraft):'';
+ const reg=$('homeReg').value.trim(),pos=$('homePos').value.trim();
+ const missing=[!reg&&'REG',!ex&&'EX',!pos&&'POS'].filter(Boolean);
+ $('homeFlypadProgress').textContent=missing.length?'Required fields missing: '+missing.join(', '):'✓ FlyPad required fields complete';
+ const status=$('homeAssStatus');status.className='homebriefing-ass';
+ if(!route||!confirmed){status.textContent='ASS status pending';const small=document.createElement('small');small.textContent='Enter a valid route and confirm the aircraft first.';status.append(small);return;}
+ const result=evaluateAssRequirement(route.dep,route.dest,ex);
+ if(result.status!=='pending')status.classList.add(result.status);
+ status.textContent=result.status==='required'?'ASS required':result.status==='not-required'?'ASS not required':'ASS status pending';
+ const small=document.createElement('small');small.textContent=result.reason;status.append(small);
+}
+function updateFlypadSobDiff(){
+ const ids=['homeSob','homeFcm','homeCcm','homeTot','homeInfnt'];
+ const values=ids.map(id=>$(id).value.trim());
+ const out=$('homeSobDiff');
+ if(values.some(v=>v===''||!/^\d+$/.test(v))){out.textContent='–';return;}
+ out.textContent=String(Number(values[0])-Number(values[1])-Number(values[2])-Number(values[3])-Number(values[4]));
+}
+for(const id of ['homeSob','homeFcm','homeCcm','homeTot','homeInfnt'])$(id).addEventListener('input',updateFlypadSobDiff);
+for(const id of ['homeReg','homeEx','homePos','homeSlot']){
+ $(id).addEventListener('input',()=>{
+  if(id==='homeEx'){$(id).value=$(id).value.toUpperCase().replace(/[^A-Z]/g,'').slice(0,4);}
+  renderHomebriefing();
+ });
+}
+$('route').addEventListener('input',renderHomebriefing);
+$('aircraftConfirm').addEventListener('click',renderHomebriefing);
+$('aircraftCancel').addEventListener('click',renderHomebriefing);
+$('clear').addEventListener('click',renderHomebriefing);
+
+
+// EWAS 1.0.8: Route cards reflect the computed EWAS-Preflight list, not a separate airport database.
+let homeBriefingRouteKey='',homeBriefingCards=[],homeBriefingMarks=new Map();
+const homeBriefingCheckTypes=['TS','Wind','VIS','RWY&ILS','TOI'];
+function syncHomebriefingAirports(){
+ const route=getOFPRoute(),confirmed=isAircraftConfirmed();
+ const key=confirmed&&route?route.dep+'|'+route.dest+'|'+selectedAircraft+'|'+$('route').value.trim():'';
+ if(key!==homeBriefingRouteKey){homeBriefingRouteKey=key;homeBriefingMarks=new Map();homeBriefingCards=[];}
+ const raw=confirmed&&route?$('preflightResult').textContent.trim():'';
+ const codes=raw&&raw!=='–'?raw.split(',').map(x=>x.trim()).filter(validCode):[];
+ if(!key){homeBriefingCards=[];renderHomebriefingAirports();return;}
+ const existing=new Set(homeBriefingCards);
+ // Keep intentional removals while a route is unchanged, but add newly computed airports.
+ if(!homeBriefingCards.length&&!homeBriefingMarks.has('__initialized__')){homeBriefingCards=[...codes];homeBriefingMarks.set('__initialized__',new Set());}
+ else{homeBriefingCards=homeBriefingCards.filter(c=>codes.includes(c));for(const c of codes)if(!existing.has(c)&&!homeBriefingMarks.has('__removed_'+c))homeBriefingCards.push(c);homeBriefingCards.sort((a,b)=>codes.indexOf(a)-codes.indexOf(b));}
+ renderHomebriefingAirports();
+}
+function renderHomebriefingAirports(){
+ const holder=$('homebriefingAirportList');if(!holder)return;
+ holder.replaceChildren();
+ if(!homeBriefingCards.length){const p=document.createElement('p');p.className='homebriefing-route-help';p.textContent=homeBriefingRouteKey?'No Preflight airports in this briefing.':'Enter and confirm an OFP route to load the Preflight airports.';holder.append(p);return;}
+ const lookup=mergedEnrouteAirportMap(selectedAircraft);
+ for(const code of homeBriefingCards){
+  const airport=lookup.get(code),name=airport?.aerodrome||permanentDb?.airportNames?.[code]||'Airport name unavailable';
+  const iata=airport?.iata||'';
+  const marks=homeBriefingMarks.get(code)||new Set();
+  const card=document.createElement('article');card.className='homebriefing-airport'+(marks.size?' has-mark':'');card.dataset.icao=code;
+  const head=document.createElement('div');head.className='homebriefing-airport-head';const codeEl=document.createElement('strong');codeEl.textContent=code+(iata?'/'+iata:'');const nameEl=document.createElement('span');nameEl.textContent=name;head.append(codeEl,nameEl);card.append(head);
+  const checks=document.createElement('div');checks.className='homebriefing-checks';
+  for(const type of homeBriefingCheckTypes){const label=document.createElement('label'),check=document.createElement('input');check.type='checkbox';check.checked=marks.has(type);check.setAttribute('aria-label',code+' '+type);check.addEventListener('change',()=>{const next=homeBriefingMarks.get(code)||new Set();if(check.checked)next.add(type);else next.delete(type);homeBriefingMarks.set(code,next);card.classList.toggle('has-mark',next.size>0);});const t=document.createElement('span');t.textContent=type;label.append(check,t);checks.append(label);}
+  card.append(checks);
+  let x0=0,y0=0;
+  card.addEventListener('touchstart',e=>{if(e.touches.length!==1)return;x0=e.touches[0].clientX;y0=e.touches[0].clientY;},{passive:true});
+  card.addEventListener('touchend',e=>{if(!e.changedTouches.length)return;const dx=e.changedTouches[0].clientX-x0,dy=e.changedTouches[0].clientY-y0;if(dx < -65&&Math.abs(dx)>Math.abs(dy)*1.4){if(window.confirm('Remove '+code+' from this Homebriefing route list?')){homeBriefingMarks.set('__removed_'+code,new Set());homeBriefingCards=homeBriefingCards.filter(c=>c!==code);renderHomebriefingAirports();}}},{passive:true});
+  holder.append(card);
+ }
+}
+function computeHomebriefingTtot(){
+ const t=$('homeTto').value.trim(),ete=$('homeEte').value.trim(),out=$('homeTtot'),err=$('homeTimeError');out.textContent='—';err.textContent='';
+ if(!t||!ete)return;
+ const start=parseHhmm(t),duration=parseHhmm(ete,true);
+ if(start===null||duration===null){err.textContent='Enter valid HHMM (TTO 0000–2359, ETE minutes 00–59).';return;}
+ out.textContent=clockHhmm(start-duration);
+}
+for(const id of ['homeTto','homeEte'])$(id).addEventListener('input',computeHomebriefingTtot);
+$('homeReg').addEventListener('input',()=>{const el=$('homeReg');const clean=el.value.toUpperCase().replace(/^HB[- ]?/,'').replace(/[^A-Z0-9]/g,'');if(el.value!==clean)el.value=clean;});
+// Recalculate after the main route has finished generating its Preflight output.
+const originalParseRoute108=parseRoute;
+parseRoute=function(){const result=originalParseRoute108.apply(this,arguments);syncHomebriefingAirports();return result;};
+$('route').addEventListener('input',()=>{if(!isAircraftConfirmed())syncHomebriefingAirports();});
+$('aircraftConfirm').addEventListener('click',()=>queueMicrotask(syncHomebriefingAirports));
+syncHomebriefingAirports();
 
 </script></body></html>
