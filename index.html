@@ -1,4 +1,4 @@
-<!doctype html><html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>EWAS 1.0.5 · Editor &amp; Live</title><style>
+<!doctype html><html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>EWAS 1.0.10 · Editor &amp; Live</title><style>
 :root{font-family:system-ui,-apple-system,Segoe UI,Arial,sans-serif;color:#17243a;background:#f3f6fa}*{box-sizing:border-box}body{max-width:1120px;margin:0 auto;padding:22px}h1{margin:0 0 5px;font-size:1.9rem}h2{font-size:1.12rem;margin:0 0 12px}.muted{color:#627187;font-size:.91rem;line-height:1.5}.layout{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:18px}.panel{background:white;border:1px solid #dfe5ed;border-radius:14px;padding:19px;box-shadow:0 3px 12px #17203308}.full{grid-column:1/-1}label{display:block;font-weight:650;margin:9px 0 6px}textarea,input{font:inherit;border:1px solid #c8d3e0;border-radius:8px;padding:11px;width:100%;background:white;color:#17243a}textarea{resize:vertical;min-height:145px}#route{height:90px;min-height:90px}input[type=checkbox]{width:auto;accent-color:#174a80}button{font:inherit;cursor:pointer;background:#194e83;border:0;border-radius:8px;padding:10px 13px;color:white;font-weight:650;margin:8px 7px 0 0}button.secondary{background:#e8eef5;color:#233d59}button.danger{background:#fbe9e9;color:#8d2d2d}button.small{padding:7px 10px;margin:0}#copy{margin:0 0 12px 0}.output{font-size:10px;line-height:1.25;padding:5px 7px;min-height:24px;background:#f7f9fc;border:1px solid #e0e7f0;border-radius:9px;white-space:pre-wrap;overflow-wrap:anywhere}.accordion{border:1px solid #dfe5ed;border-radius:9px;margin:9px 0;overflow:hidden}.accordion summary{cursor:pointer;font-weight:700;background:#f7f9fc}.accordion-body{padding:13px}.combo-row{grid-template-columns:minmax(90px,115px) minmax(0,1fr) minmax(0,1fr) auto}.waypoint-row{grid-template-columns:minmax(0,1fr) minmax(0,1fr) auto}.rule-name-wrap{margin:2px 0 10px}.rule-name-wrap label{font-size:.82rem}.rule-name-wrap input{padding:7px 9px}.subrule-name label{white-space:nowrap;margin:0;font-size:.8rem}.subrule-name input{flex:1;min-width:0;padding:6px 8px}.accordion-body>.rule-name-wrap{max-width:460px}.rule-row{display:grid;grid-template-columns:minmax(95px,125px) minmax(180px,1fr) auto;gap:8px;align-items:center;margin:4px 0;padding:6px 8px;background:#f7f9fc;border-radius:7px}.rule-row label{margin:0 0 3px}.rule-editor{max-height:260px;overflow-y:auto;border:1px solid #dfe5ed;border-radius:9px;padding:5px 8px;background:#fff}.rule-row .delete{align-self:end}.switch{display:flex;gap:9px;align-items:center;font-weight:600}.switch input{margin:0}.subhead{font-size:1rem;font-weight:700;margin:20px 0 6px}.status:not(:empty){margin-top:10px}.bar{display:flex;gap:8px;flex-wrap:wrap;align-items:center}@media(max-width:720px){body{padding:12px}.layout{grid-template-columns:1fr}.full{grid-column:auto}.rule-row,.combo-row,.waypoint-row{grid-template-columns:1fr}.rule-row .delete{justify-self:start}}
 
 /* v5.6: gleiche Feldbreiten und kompakte, umbenennbare Überschriften */
@@ -486,7 +486,18 @@ main.layout{margin-top:16px}
 
 /* Kollegenversion: Editor unsichtbar */
 .rules-panel{display:none!important}
-#ewasModeNav,#editorSubnav,#tab-editor{display:none!important}</style></head><body>
+#ewasModeNav,#editorSubnav,#tab-editor{display:none!important}
+/* EWAS 1.0.10 – flight autosave (Live only; no changes to permanent database). */
+.flight-autosave-toolbar{display:flex;align-items:center;justify-content:space-between;gap:9px;flex-wrap:wrap;margin:9px 0 4px;padding:8px 11px;border:1px solid #d6e2ed;border-radius:10px;background:#f7fafe}
+.flight-autosave-toolbar[hidden]{display:none!important}
+.flight-autosave-state{display:flex;align-items:center;gap:6px;min-width:0;font-size:.77rem;line-height:1.35;color:#4d647b}
+.flight-autosave-state:before{content:'';width:7px;height:7px;flex:none;border-radius:50%;background:#8796a6}
+.flight-autosave-state.ok:before{background:#22864f}
+.flight-autosave-state.error{color:#a42b2b}
+.flight-autosave-state.error:before{background:#c03f35}
+.flight-autosave-toolbar #newFlightButton{font-size:.77rem;padding:7px 10px;min-height:34px;margin:0;white-space:nowrap}
+@media(max-width:480px){.flight-autosave-toolbar{padding:7px 9px}.flight-autosave-state{font-size:.73rem}}
+</style></head><body>
 <div id="aalAgeWarning" role="alert"></div>
 <nav class="ewas-tabs ewas-main-tabs" id="ewasModeNav" aria-label="EWAS mode">
  <button type="button" class="ewas-tab active" data-ewas-mode="editor" aria-selected="true">Editor</button>
@@ -498,7 +509,7 @@ main.layout{margin-top:16px}
  <button type="button" class="ewas-tab" data-ewas-editor-tab="lists" aria-selected="false">Airport Lists</button>
  <button type="button" class="ewas-tab" data-ewas-editor-tab="rules" aria-selected="false">Rulebook</button>
  <button type="button" class="ewas-tab" data-ewas-editor-tab="descriptions" aria-selected="false">Descriptions</button>
- <span class="ewas-nav-version" aria-label="Current version">Version 1.0.7</span>
+ <span class="ewas-nav-version" aria-label="Current version">Version 1.0.10</span>
 </nav>
 
 <nav class="ewas-tabs ewas-sub-tabs" id="liveSubnav" aria-label="Live sections" hidden="">
@@ -508,8 +519,13 @@ main.layout{margin-top:16px}
  <button type="button" class="ewas-tab" data-ewas-live-tab="depdest" aria-selected="false">DEP &amp; DEST (ALTN)</button>
  <button type="button" class="ewas-tab" data-ewas-live-tab="eras" aria-selected="false">ERAs</button>
  <button type="button" class="ewas-tab" data-ewas-live-tab="calc" aria-selected="false">CALC</button>
- <div class="ewas-live-version-stack"><span class="ewas-nav-version" aria-label="Current version">Version 1.0.7</span><span class="ewas-live-upload-dates" role="status" aria-label="AAL publication dates"><span id="live330LastUpload" class="aal-upload-date unknown">A330 AAL published –</span><span id="live350LastUpload" class="aal-upload-date unknown">A350 AAL published –</span></span></div>
-</nav><main class="layout">
+ <div class="ewas-live-version-stack"><span class="ewas-nav-version" aria-label="Current version">Version 1.0.10</span><span class="ewas-live-upload-dates" role="status" aria-label="AAL publication dates"><span id="live330LastUpload" class="aal-upload-date unknown">A330 AAL published –</span><span id="live350LastUpload" class="aal-upload-date unknown">A350 AAL published –</span></span></div>
+</nav>
+<div id="flightAutosaveToolbar" class="flight-autosave-toolbar" hidden="" role="group" aria-label="Local flight save">
+ <span id="flightAutosaveState" class="flight-autosave-state" role="status" aria-live="polite">Local storage · ready</span>
+ <button type="button" id="newFlightButton" class="secondary">New Flight</button>
+</div>
+<main class="layout">
 <div class="ewas-mode-panel" id="tab-editor">
  <div class="ewas-tab-panel" id="tab-editor-config">
 <section class="panel full permanent-database-panel" id="permanentDbPanel">
@@ -792,6 +808,7 @@ function activateEwasNavigation(){
  document.getElementById('ewasModeNav').hidden=!!window.EWAS_COLLEAGUE;
  document.getElementById('editorSubnav').hidden=mode!=='editor';
  document.getElementById('liveSubnav').hidden=mode!=='live';
+ document.getElementById('flightAutosaveToolbar').hidden=mode!=='live';
  for(const button of document.querySelectorAll('[data-ewas-mode], [data-ewas-editor-tab], [data-ewas-live-tab]')){
   const active=button.dataset.ewasMode===mode||
    (mode==='editor'&&button.dataset.ewasEditorTab===ewasSubSelection.editor)||
@@ -2046,7 +2063,7 @@ function clearLiveInputs(){
  if(typeof parseRoute==='function')parseRoute();
 }
 // pageshow also handles browser back/forward-cache restoration of user input fields.
-window.addEventListener('pageshow',clearLiveInputs);
+// EWAS 1.0.10: pageshow no longer clears inputs; autosave restores the current flight.
 let editingEnrouteTag=null;
 let airportEditIgnored={};
 let manualArptColor=null;
@@ -2698,7 +2715,7 @@ function renderHomebriefingAirports(){
   card.append(checks);
   let x0=0,y0=0;
   card.addEventListener('touchstart',e=>{if(e.touches.length!==1)return;x0=e.touches[0].clientX;y0=e.touches[0].clientY;},{passive:true});
-  card.addEventListener('touchend',e=>{if(!e.changedTouches.length)return;const dx=e.changedTouches[0].clientX-x0,dy=e.changedTouches[0].clientY-y0;if(dx < -65&&Math.abs(dx)>Math.abs(dy)*1.4){if(window.confirm('Remove '+code+' from this Homebriefing route list?')){homeBriefingMarks.set('__removed_'+code,new Set());homeBriefingCards=homeBriefingCards.filter(c=>c!==code);renderHomebriefingAirports();}}},{passive:true});
+  card.addEventListener('touchend',e=>{if(!e.changedTouches.length)return;const dx=e.changedTouches[0].clientX-x0,dy=e.changedTouches[0].clientY-y0;if(dx < -65&&Math.abs(dx)>Math.abs(dy)*1.4){if(window.confirm('Remove '+code+' from this Homebriefing route list?')){homeBriefingMarks.set('__removed_'+code,new Set());homeBriefingCards=homeBriefingCards.filter(c=>c!==code);renderHomebriefingAirports();if(typeof ewasScheduleFlightSave==='function')ewasScheduleFlightSave();}}},{passive:true});
   holder.append(card);
  }
 }
@@ -2717,5 +2734,146 @@ parseRoute=function(){const result=originalParseRoute108.apply(this,arguments);s
 $('route').addEventListener('input',()=>{if(!isAircraftConfirmed())syncHomebriefingAirports();});
 $('aircraftConfirm').addEventListener('click',()=>queueMicrotask(syncHomebriefingAirports));
 syncHomebriefingAirports();
+
+
+// EWAS 1.0.10 – device-local current-flight autosave. NOT included in permanent JSON/exported rulebook.
+// The key intentionally does not include the version or export timestamp, so GitHub updates keep the flight.
+const EWAS_FLIGHT_STORAGE_KEY='EWAS_current_flight_v1';
+const EWAS_FLIGHT_INPUTS=[
+ 'homeReg','homeEx','homePos','homeSlot','homeBrf',
+ 'homeTot','homeInfnt','homeFreeF','homeFreeC','homeFreeE','homeFreeY','homeSby',
+ 'homeFcm','homeCcm','homeDh','homeSob',
+ 'homeFlightToi','homeFsVersion','homeAcftMel',
+ 'homeCallsign','homeFlt','homeTto','homeEte','homeFinalNotes',
+ 'calcTto','calcEte','calcCelsius','calcFahrenheit','calcRestTo','calcRestLdg'
+];
+const EWAS_FLIGHT_SECTIONS=['homebriefingFlypad','homebriefingGeneral','homebriefingRouteSection','homebriefingFinal'];
+let ewasFlightRestoreRunning=true,ewasFlightSaveTimer=null,ewasFlightSavedAt=0,ewasFlightStorageLocked=false;
+const ewasKnownSectionOpen={};
+function ewasFlightStatus(message,state=''){
+ const el=$('flightAutosaveState');if(!el)return;
+ el.textContent=message;el.className='flight-autosave-state'+(state?' '+state:'');
+}
+function ewasFlightTime(when){
+ try{return new Date(when).toLocaleString('de-CH',{day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit'});}
+ catch(e){return new Date(when).toLocaleString();}
+}
+function ewasCaptureFlight(){
+ const fields={};for(const id of EWAS_FLIGHT_INPUTS){const el=$(id);if(el)fields[id]=el.value;}
+ const marks={},removed=[];
+ for(const [key,items] of homeBriefingMarks){
+  if(key.startsWith('__removed_'))removed.push(key.slice('__removed_'.length));
+  else if(validCode(key)&&items.size)marks[key]=[...items].filter(v=>homeBriefingCheckTypes.includes(v));
+ }
+ const route=getOFPRoute();
+ return {schema:1,savedAt:Date.now(),routeText:$('route').value,aircraft:selectedAircraft,
+  aircraftConfirmed:!!(route&&isAircraftConfirmed()),
+  fields,homeRouteKey:homeBriefingRouteKey,homeMarks:marks,homeRemoved:removed,
+  homeSections:Object.fromEntries(EWAS_FLIGHT_SECTIONS.map(id=>[id,!!$(id)?.open])),
+  liveTab:ewasSubSelection.live};
+}
+function ewasSaveFlight(){
+ if(ewasFlightRestoreRunning||ewasFlightStorageLocked)return;
+ clearTimeout(ewasFlightSaveTimer);ewasFlightSaveTimer=null;
+ try{
+  const state=ewasCaptureFlight();
+  // Do not create an empty flight merely because the user launched EWAS or closed a tab.
+  const hasFlight=state.routeText.trim()||Object.values(state.fields).some(v=>String(v).trim())||state.homeRemoved.length||Object.keys(state.homeMarks).length;
+  if(!hasFlight){localStorage.removeItem(EWAS_FLIGHT_STORAGE_KEY);ewasFlightSavedAt=0;ewasFlightStatus('Noch kein Flug gespeichert');return;}
+  localStorage.setItem(EWAS_FLIGHT_STORAGE_KEY,JSON.stringify(state));
+  ewasFlightSavedAt=state.savedAt;
+  ewasFlightStatus('Lokal gespeichert · '+ewasFlightTime(state.savedAt),'ok');
+ }catch(error){
+  ewasFlightStatus('Speichern nicht möglich – Browser-Speicher prüfen','error');
+ }
+}
+function ewasScheduleFlightSave(){
+ if(ewasFlightRestoreRunning||ewasFlightStorageLocked)return;
+ clearTimeout(ewasFlightSaveTimer);
+ ewasFlightStatus('Lokal speichern …');
+ ewasFlightSaveTimer=setTimeout(ewasSaveFlight,150);
+}
+function ewasRestoreFlight(){
+ let state=null;
+ try{
+  const raw=localStorage.getItem(EWAS_FLIGHT_STORAGE_KEY);
+  if(raw)state=JSON.parse(raw);
+ }catch(error){ewasFlightStorageLocked=true;ewasFlightStatus('Speicherzugriff nicht möglich – New Flight zum Zurücksetzen','error');return;}
+ if(!state){ewasFlightStatus('Noch kein Flug gespeichert');return;}
+ if(state.schema!==1||typeof state.routeText!=='string'||!state.fields||typeof state.fields!=='object'){
+  ewasFlightStorageLocked=true;ewasFlightStatus('Unbekanntes Speicherformat – New Flight zum Zurücksetzen','error');return;
+ }
+ try{
+  $('route').value=state.routeText;
+  for(const id of EWAS_FLIGHT_INPUTS){
+   if(Object.prototype.hasOwnProperty.call(state.fields,id)&&typeof state.fields[id]==='string'&&$(id))$(id).value=state.fields[id];
+  }
+  selectedAircraft=['A330','A350'].includes(state.aircraft)?state.aircraft:'A330';
+  confirmedRouteSignature='';
+  const route=getOFPRoute();
+  if(route&&state.aircraftConfirmed)confirmedRouteSignature=route.key;
+  refreshAircraftBanner();
+  parseRoute(); // rebuild all calculated results with the current embedded AAL/rules
+  if(route&&isAircraftConfirmed()&&homeBriefingRouteKey===state.homeRouteKey){
+   const removed=new Set(Array.isArray(state.homeRemoved)?state.homeRemoved.filter(validCode):[]);
+   for(const code of removed)homeBriefingMarks.set('__removed_'+code,new Set());
+   homeBriefingCards=homeBriefingCards.filter(code=>!removed.has(code));
+   const rawMarks=state.homeMarks||{};
+   for(const code of homeBriefingCards){
+    const values=rawMarks[code];
+    if(Array.isArray(values))homeBriefingMarks.set(code,new Set(values.filter(v=>homeBriefingCheckTypes.includes(v))));
+   }
+   renderHomebriefingAirports();
+  }
+  for(const id of EWAS_FLIGHT_SECTIONS){
+   if(typeof state.homeSections?.[id]==='boolean')$(id).open=state.homeSections[id];
+  }
+  updateFlypadSobDiff();computeHomebriefingTtot();computeTtot();computeInflightRest();
+  if($('calcCelsius').value.trim())computeTemperature('c');
+  else if($('calcFahrenheit').value.trim())computeTemperature('f');
+  renderHomebriefing();
+  if(['ofp','ewas','homebriefing','depdest','eras','calc'].includes(state.liveTab)){
+   ewasSubSelection.live=state.liveTab;activateEwasNavigation();
+  }
+  if(typeof state.savedAt==='number'&&Number.isFinite(state.savedAt)){
+   ewasFlightSavedAt=state.savedAt;
+   ewasFlightStatus('Lokal wiederhergestellt · '+ewasFlightTime(state.savedAt),'ok');
+  }else ewasFlightStatus('Flug lokal wiederhergestellt','ok');
+ }catch(error){
+  ewasFlightStorageLocked=true;ewasFlightStatus('Wiederherstellung fehlgeschlagen – New Flight zum Zurücksetzen','error');
+  // Do not overwrite the saved state when a restore fails.
+  return;
+ }
+}
+function ewasNewFlight(){
+ if(!window.confirm('New Flight: OFP route, aircraft confirmation, Homebriefing and calculator values on THIS device reset? Airport database and Rulebook remain unchanged.'))return;
+ clearTimeout(ewasFlightSaveTimer);ewasFlightSaveTimer=null;
+ ewasFlightRestoreRunning=true;
+ try{
+  $('route').value='';confirmedRouteSignature='';selectedAircraft='A330';
+  for(const id of EWAS_FLIGHT_INPUTS)if($(id))$(id).value='';
+  homeBriefingRouteKey='';homeBriefingCards=[];homeBriefingMarks=new Map();
+  refreshAircraftBanner();parseRoute();renderHomebriefingAirports();renderHomebriefing();
+  updateFlypadSobDiff();computeHomebriefingTtot();computeTtot();computeInflightRest();
+  $('calcTempError').textContent='';
+  ewasSubSelection.live='ofp';activateEwasNavigation();
+  try{localStorage.removeItem(EWAS_FLIGHT_STORAGE_KEY);ewasFlightSavedAt=0;ewasFlightStorageLocked=false;ewasFlightStatus('Neuer Flug · noch nicht gespeichert');}
+  catch(error){ewasFlightStatus('Zurückgesetzt, aber lokaler Speicher konnte nicht gelöscht werden','error');}
+ }finally{ewasFlightRestoreRunning=false;}
+}
+$('newFlightButton').addEventListener('click',ewasNewFlight);
+// Delegated listeners also work for dynamically generated Route checkboxes.
+$('tab-live').addEventListener('input',ewasScheduleFlightSave);
+$('tab-live').addEventListener('change',ewasScheduleFlightSave);
+for(const id of EWAS_FLIGHT_SECTIONS)$(id).addEventListener('toggle',()=>{const open=$(id).open;if(ewasKnownSectionOpen[id]===open)return;ewasKnownSectionOpen[id]=open;ewasScheduleFlightSave();});
+document.querySelectorAll('[data-ewas-live-tab]').forEach(button=>button.addEventListener('click',ewasScheduleFlightSave));
+for(const id of ['aircraftConfirm','aircraftCancel','clear'])$(id).addEventListener('click',()=>queueMicrotask(ewasScheduleFlightSave));
+// Sync called in card handler – swipe removal does not dispatch an input/change event.
+// Save on app switching, browser close, refresh and backgrounding without waiting for debounce.
+window.addEventListener('pagehide',ewasSaveFlight);
+document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='hidden')ewasSaveFlight();});
+// A back/forward-cache restore retains the in-memory state. Never clear the route on pageshow.
+try{ewasRestoreFlight();}finally{ewasFlightRestoreRunning=false;}
+for(const id of EWAS_FLIGHT_SECTIONS)ewasKnownSectionOpen[id]=$(id).open;
 
 </script></body></html>
