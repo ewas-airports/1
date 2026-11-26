@@ -1,4 +1,4 @@
-<!doctype html><html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>EWAS 1.1.2 · Live</title><style>
+<!doctype html><html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>EWAS 1.1.3 · Live</title><style>
 :root{font-family:system-ui,-apple-system,Segoe UI,Arial,sans-serif;color:#17243a;background:#f3f6fa}*{box-sizing:border-box}body{max-width:1120px;margin:0 auto;padding:22px}h1{margin:0 0 5px;font-size:1.9rem}h2{font-size:1.12rem;margin:0 0 12px}.muted{color:#627187;font-size:.91rem;line-height:1.5}.layout{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:18px}.panel{background:white;border:1px solid #dfe5ed;border-radius:14px;padding:19px;box-shadow:0 3px 12px #17203308}.full{grid-column:1/-1}label{display:block;font-weight:650;margin:9px 0 6px}textarea,input{font:inherit;border:1px solid #c8d3e0;border-radius:8px;padding:11px;width:100%;background:white;color:#17243a}textarea{resize:vertical;min-height:145px}#route{height:90px;min-height:90px}input[type=checkbox]{width:auto;accent-color:#174a80}button{font:inherit;cursor:pointer;background:#194e83;border:0;border-radius:8px;padding:10px 13px;color:white;font-weight:650;margin:8px 7px 0 0}button.secondary{background:#e8eef5;color:#233d59}button.danger{background:#fbe9e9;color:#8d2d2d}button.small{padding:7px 10px;margin:0}#copy{margin:0 0 12px 0}.output{font-size:10px;line-height:1.25;padding:5px 7px;min-height:24px;background:#f7f9fc;border:1px solid #e0e7f0;border-radius:9px;white-space:pre-wrap;overflow-wrap:anywhere}.accordion{border:1px solid #dfe5ed;border-radius:9px;margin:9px 0;overflow:hidden}.accordion summary{cursor:pointer;font-weight:700;background:#f7f9fc}.accordion-body{padding:13px}.combo-row{grid-template-columns:minmax(90px,115px) minmax(0,1fr) minmax(0,1fr) auto}.waypoint-row{grid-template-columns:minmax(0,1fr) minmax(0,1fr) auto}.rule-name-wrap{margin:2px 0 10px}.rule-name-wrap label{font-size:.82rem}.rule-name-wrap input{padding:7px 9px}.subrule-name label{white-space:nowrap;margin:0;font-size:.8rem}.subrule-name input{flex:1;min-width:0;padding:6px 8px}.accordion-body>.rule-name-wrap{max-width:460px}.rule-row{display:grid;grid-template-columns:minmax(95px,125px) minmax(180px,1fr) auto;gap:8px;align-items:center;margin:4px 0;padding:6px 8px;background:#f7f9fc;border-radius:7px}.rule-row label{margin:0 0 3px}.rule-editor{max-height:260px;overflow-y:auto;border:1px solid #dfe5ed;border-radius:9px;padding:5px 8px;background:#fff}.rule-row .delete{align-self:end}.switch{display:flex;gap:9px;align-items:center;font-weight:600}.switch input{margin:0}.status:not(:empty){margin-top:10px}.bar{display:flex;gap:8px;flex-wrap:wrap;align-items:center}@media(max-width:720px){body{padding:12px}.layout{grid-template-columns:1fr}.full{grid-column:auto}.rule-row,.combo-row,.waypoint-row{grid-template-columns:1fr}.rule-row .delete{justify-self:start}}
 
 /* v5.6: gleiche Feldbreiten und kompakte, umbenennbare Überschriften */
@@ -704,6 +704,31 @@ main.layout{margin-top:16px}
 #eraAirportInfoContent .info-era-actions .info-delete-btn{min-height:44px;padding:8px 13px;font-weight:700;touch-action:manipulation}
 #tab-live-eras .era-touch-holding{outline:3px solid #3a86b9;outline-offset:-3px;box-shadow:0 4px 15px #164e8050;z-index:2;position:relative;transition:none;user-select:none}
 @media(max-width:650px){#eraAirportInfoContent .info-era-actions{grid-template-columns:repeat(4,42px) auto;width:100%;margin-left:0;justify-content:start}}
+
+/* 1.1.3: compact Preflight review, full-width when the app is in split screen. */
+#tab-live-preflight .preflight-review-panel{width:100%;max-width:620px;min-width:0;margin-right:auto;box-sizing:border-box;padding:12px}
+@media(min-width:1000px){#tab-live-preflight .preflight-review-panel{width:50%;min-width:460px}}
+#tab-live-preflight .preflight-review-actions{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:6px}
+#tab-live-preflight .preflight-review-actions button{min-height:36px;margin:0}
+#tab-live-preflight .preflight-review-actions button:disabled,#copyPreflight:disabled{opacity:.5;cursor:not-allowed}
+#preflightReviewStatus{margin:0 0 5px;min-height:0;font-size:.75rem}
+#tab-live-preflight .enroute-airport-scroll{max-height:none;overflow:visible}
+#tab-live-preflight .enroute-airport-grid{min-width:0;width:100%;--airport-columns:34px minmax(110px,1.15fr) 40px minmax(0,1.3fr) minmax(0,1fr);font-size:.78rem}
+#tab-live-preflight .enroute-airport-header{position:sticky;top:0;z-index:5;text-align:left}
+#tab-live-preflight .enroute-airport-header>span{padding:4px 3px;font-size:.7rem;text-align:left}
+#tab-live-preflight .enroute-airport-row{min-height:54px;cursor:pointer;--indent:0px}
+#tab-live-preflight .enroute-airport-bar{left:34px}
+#tab-live-preflight .airport-cell{padding:4px 3px;text-align:left;white-space:normal;overflow-wrap:anywhere}
+#tab-live-preflight .enroute-airport-row>.airport-cell.klass{text-align:left}
+#tab-live-preflight .enroute-airport-row>.airport-cell.code{padding-left:3px;flex-wrap:wrap;gap:3px;white-space:normal;overflow:visible!important}
+#tab-live-preflight .airport-code-label{white-space:nowrap;flex:none}
+#tab-live-preflight .preflight-check-cell{display:flex;align-items:center;justify-content:center;align-self:stretch;cursor:pointer}
+#tab-live-preflight .preflight-check-cell input{width:22px;height:22px;min-width:22px;margin:0;accent-color:#285d91;cursor:pointer}
+#tab-live-preflight .preflight-marked .enroute-airport-bar{box-shadow:inset 0 0 0 2px #285d91}
+#tab-live-preflight .airport-info-row:focus-visible{outline:2px solid #285d91;outline-offset:1px}
+#eraAirportInfoDialog.comment-only{width:min(500px,94vw)}
+#eraAirportInfoDialog.comment-only textarea{min-height:110px}
+@media(max-width:440px){#tab-live-preflight .preflight-review-panel{padding:8px}#tab-live-preflight .enroute-airport-grid{--airport-columns:30px minmax(100px,1.1fr) 32px minmax(0,1.2fr) minmax(0,1fr);font-size:.72rem}#tab-live-preflight .enroute-airport-bar{left:30px}#tab-live-preflight .enroute-airport-header>span{font-size:.64rem}}
 /* Kollegenversion: Editor unsichtbar */
 .rules-panel{display:none!important}
 #ewasModeNav,#editorSubnav,#tab-editor{display:none!important}</style><style>
@@ -801,7 +826,7 @@ main.layout{margin-top:16px}
 #tab-live-ofp .route-panel>.coverage-panel #coverageList{min-height:0}
 @media (max-width:700px){#tab-live-ofp .preflight-workspace{grid-template-columns:minmax(0,1fr)}#tab-live-ofp .preflight-workspace>.panel{height:auto}#tab-live-ofp .route-panel #route{height:86px}}
 </style><style>
-/* 1.1.2 LIVE: larger touch targets, flight comments and compact rest layout */
+/* 1.1.3 LIVE: larger touch targets, flight comments and compact rest layout */
 #tab-live-eras .enroute-airport-row{min-height:54px}
 #tab-live-eras .enroute-airport-scroll{max-height:585px}
 #tab-live-eras .era-list-actions{display:flex;align-items:center;gap:7px;margin-left:auto;flex-wrap:wrap}
@@ -834,18 +859,19 @@ main.layout{margin-top:16px}
  <button type="button" class="ewas-tab" data-ewas-editor-tab="revision">AAL Revision</button>
  <button type="button" class="ewas-tab" data-ewas-editor-tab="rules" aria-selected="false">Rulebook</button>
  <button type="button" class="ewas-tab" data-ewas-editor-tab="descriptions" aria-selected="false">Descriptions</button>
- <span class="ewas-nav-version" aria-label="Current version">Version 1.1.2</span>
+ <span class="ewas-nav-version" aria-label="Current version">Version 1.1.3</span>
 </nav>
 
 <nav class="ewas-tabs ewas-sub-tabs" id="liveSubnav" aria-label="Live sections" hidden="">
- <button type="button" class="ewas-tab active" data-ewas-live-tab="ofp" aria-selected="true">Preflight</button>
-  <button type="button" class="ewas-tab" data-ewas-live-tab="eras" aria-selected="false">ERAs</button>
+ <button type="button" class="ewas-tab active" data-ewas-live-tab="ofp" aria-selected="true">Init</button>
+ <button type="button" class="ewas-tab" data-ewas-live-tab="preflight" aria-selected="false">Preflight</button>
+  <button type="button" class="ewas-tab" data-ewas-live-tab="eras" aria-selected="false">Inflight</button>
  <button type="button" class="ewas-tab" data-ewas-live-tab="depdest" aria-selected="false">DEST (ALTN)</button>
  <button type="button" class="ewas-tab" data-ewas-live-tab="arpt" aria-selected="false">ARPT</button>
  <button type="button" class="ewas-tab" data-ewas-live-tab="rest" aria-selected="false">Rest &amp; Function Time</button>
  <button type="button" class="ewas-tab" data-ewas-live-tab="calc" aria-selected="false">CALC</button>
  <button type="button" id="newFlightButton" class="danger ewas-clear-data" title="Clear current flight data">Clear Data</button>
- <div class="ewas-live-version-stack"><span class="ewas-nav-version" aria-label="Current version">Version 1.1.2</span><span class="ewas-live-upload-dates" role="status" aria-label="AAL publication dates"><span id="live330LastUpload" class="aal-upload-date unknown">A330 AAL published –</span><span id="live350LastUpload" class="aal-upload-date unknown">A350 AAL published –</span><span id="liveSecuLastReview" class="aal-upload-date unknown">Last SECU review 10.11.2026</span></span></div>
+ <div class="ewas-live-version-stack"><span class="ewas-nav-version" aria-label="Current version">Version 1.1.3</span><span class="ewas-live-upload-dates" role="status" aria-label="AAL publication dates"><span id="live330LastUpload" class="aal-upload-date unknown">A330 AAL published –</span><span id="live350LastUpload" class="aal-upload-date unknown">A350 AAL published –</span><span id="liveSecuLastReview" class="aal-upload-date unknown">Last SECU review 10.11.2026</span></span></div>
 </nav>
 <div id="flightAutosaveToolbar" class="flight-autosave-toolbar" hidden="" role="group" aria-label="Local flight save">
  
@@ -953,7 +979,7 @@ main.layout{margin-top:16px}
  <div class="ewas-tab-panel" id="tab-live-ofp">
   <div class="preflight-workspace">
    <section class="panel route-panel" aria-label="Preflight OFP route and aircraft selection">
-    <h2>Preflight · OFP &amp; ACFT</h2>
+    <h2>Init · OFP &amp; ACFT</h2>
     <div class="bar" style="justify-content:flex-start;align-items:center;flex-wrap:wrap;gap:10px"><button id="parse">Paste from Clipboard</button><span class="muted" style="font-size:.78rem">Paste your OFP route below</span></div>
     <textarea id="route" spellcheck="false" autocomplete="off" placeholder="Paste OFP route here…" data-sharkid="__0"></textarea>
     <div id="aircraftConfirmedBanner" class="aircraft-confirmed-banner" hidden=""><span id="aircraftConfirmedLabel"></span><button id="aircraftChange" type="button" class="secondary small">Change aircraft</button></div>
@@ -961,7 +987,7 @@ main.layout{margin-top:16px}
     
    </section>
    <section class="panel preflight-side-panel" aria-label="Preflight airport lists, ASS and take-off time">
-    <div class="preflight-actions"><button id="copyPreflight" class="secondary copy-airports-button">Copy EWAS PFL Airports</button><button id="copy" class="secondary copy-airports-button">Copy EWAS IFL Airports</button></div>
+    <div class="preflight-actions"><button id="copyPreflight" class="secondary copy-airports-button" disabled="">Copy for EWAS &amp; Go to Preflight</button><span id="initCopyStatus" class="muted" role="status"></span></div>
     <label class="preflight-ex-field" for="preflightEx">Previous Aerodrome (ICAO) <input id="preflightEx" type="text" maxlength="4" placeholder="ICAO" autocomplete="off" autocapitalize="characters" spellcheck="false" aria-label="Previous aerodrome ICAO"></label>
     <div id="preflightAssStatus" class="preflight-ass pending" role="status" aria-live="polite">ASS not determined<small>Confirm aircraft and enter EX.</small></div>
     <div id="preflightTimeOver"><section class="calc-card" aria-labelledby="calcTtoHeading">
@@ -972,6 +998,17 @@ main.layout{margin-top:16px}
    </section>
   </div>
 
+ </div>
+ <div class="ewas-tab-panel" id="tab-live-preflight" hidden="">
+ <section class="panel full preflight-review-panel" aria-label="Preflight airport review">
+  <h2>Preflight <span id="preflightCount" class="muted" style="font-weight:400;font-size:.79rem"></span></h2>
+  <div class="preflight-review-actions"><button type="button" class="danger small" id="preflightDelete" disabled="">Delete</button><button type="button" class="secondary small" id="preflightCopyAirports" disabled="">Copy to EWAS</button><span id="preflightSelectedCount" class="muted" aria-live="polite"></span></div>
+  <p id="preflightReviewStatus" class="muted" role="status"></p>
+  <div class="enroute-airport-scroll"><div class="enroute-airport-grid" role="table" aria-label="Preflight airports">
+   <div class="enroute-airport-header" role="row"><span role="columnheader" aria-label="Select"></span><span role="columnheader">ICAO/IATA</span><span role="columnheader">Class</span><span role="columnheader">Airport</span><span role="columnheader">Country</span></div>
+   <div id="preflightRows" class="enroute-airport-rows" role="rowgroup"></div>
+  </div></div>
+ </section>
  </div>
  <div class="ewas-tab-panel" id="tab-live-ewas" hidden="">
 <section class="panel full results-panel" aria-label="Route Results">
@@ -996,8 +1033,8 @@ main.layout{margin-top:16px}
  </div>
  <div class="ewas-tab-panel" id="tab-live-eras" hidden="">
  <section class="panel full eras-panel" aria-label="Enroute Alternates from EWAS Inflight">
-  <div id="eraHoursOutdatedWarning" class="era-hours-warning" hidden=""></div><h2>ERAs <span id="erasCount" class="muted" style="font-weight:400;font-size:.79rem"></span></h2>
-  <p class="era-description">Departure first, followed by EWAS-Inflight in route order, excluding DEST and List 1 Destination Alternates · current <span id="erasAircraft">A330</span> airport data · MOVE changes only this Live ERAs view, never EWAS-Inflight or the airport database.</p>
+  <div id="eraHoursOutdatedWarning" class="era-hours-warning" hidden=""></div><h2>Inflight <span id="erasCount" class="muted" style="font-weight:400;font-size:.79rem"></span></h2>
+  <p class="era-description">Reviewed Preflight airports plus additional Inflight airports · <span id="erasAircraft">A330</span> · swipe left to remove, hold and drag to move.</p>
   <div class="airport-time-toolbar" role="group" aria-label="UTC reference time for airport status">
  <label>Time <input class="airport-utc-time" type="time" step="60" data-airport-utc-input="" aria-label="UTC time for airport operating hours"></label>
  <span class="airport-time-utc">UTC</span><button type="button" class="secondary small" data-airport-utc-shift="" title="Advance UTC reference by one hour">+1h</button> <button type="button" class="secondary small" data-airport-utc-reset="">Reset to UTC</button>
@@ -1011,7 +1048,7 @@ main.layout{margin-top:16px}
 </div>
  <dialog id="eraAddDialog" class="enroute-tag-dialog" aria-labelledby="eraAddTitle">
 <h3 id="eraAddTitle">Add Airport</h3><form id="eraAddForm"><label for="eraAddIcao">ICAO</label><input id="eraAddIcao" maxlength="4" autocomplete="off" autocapitalize="characters" spellcheck="false" required="" style="text-transform:uppercase" placeholder="ICAO"><p id="eraAddError" role="alert" style="color:#b91c1c"></p><div class="tag-dialog-actions"><button type="button" class="secondary" id="eraAddCancel">Cancel</button><button type="submit">Add Airport</button></div></form></dialog>
-<dialog id="eraAirportInfoDialog" class="enroute-tag-dialog" aria-labelledby="eraAirportInfoTitle"><h3 id="eraAirportInfoTitle">Airport data</h3><div id="eraAirportInfoContent" class="era-info-content"></div><div class="tag-dialog-actions"><button type="button" class="secondary" id="eraAirportInfoClose">Close</button></div></dialog>
+<dialog id="eraAirportInfoDialog" class="enroute-tag-dialog" aria-labelledby="eraAirportInfoTitle"><h3 id="eraAirportInfoTitle">Airport data</h3><div id="eraAirportInfoContent" class="era-info-content"></div><div class="tag-dialog-actions"><button type="button" class="secondary" id="eraAirportInfoClose" autofocus="">Close</button></div></dialog>
  <div class="ewas-tab-panel" id="tab-live-arpt" hidden="">
  <section class="panel full arpt-search-panel" aria-label="Airport lookup from List 2">
   <h2>ARPT · Airport Search</h2>
@@ -1136,7 +1173,7 @@ function activateEwasNavigation(){
  for(const item of ['editor','live']){
   const panel=document.getElementById('tab-'+item);
   panel.hidden=mode!==item;
-  for(const sub of (item==='editor'?['config','data','lists','revision','rules','descriptions']:['ofp','depdest','eras','arpt','rest','calc'])){
+  for(const sub of (item==='editor'?['config','data','lists','revision','rules','descriptions']:['ofp','preflight','depdest','eras','arpt','rest','calc'])){
    document.getElementById('tab-'+item+'-'+sub).hidden=mode!==item||ewasSubSelection[item]!==sub;
   }
  }
@@ -1164,6 +1201,7 @@ document.querySelectorAll('[data-ewas-live-tab]').forEach(b=>b.addEventListener(
  ewasSubSelection.live=b.dataset.ewasLiveTab;activateEwasNavigation();
  // These panes are lazily displayed. Refresh their rows on entry so they
  // always represent the route currently visible in Preflight.
+ if(ewasSubSelection.live==='preflight'&&typeof renderPreflightReview==='function')renderPreflightReview();
  if(ewasSubSelection.live==='depdest'&&typeof renderDepDest==='function')renderDepDest();
  if(ewasSubSelection.live==='eras'&&typeof renderERAs==='function')renderERAs();
  if(ewasSubSelection.live==='arpt'&&typeof renderArptSearch==='function')renderArptSearch();
@@ -1171,7 +1209,7 @@ document.querySelectorAll('[data-ewas-live-tab]').forEach(b=>b.addEventListener(
 activateEwasNavigation();
 
 const $=id=>document.getElementById(id);
-const STORAGE_KEY='EWAS_live_snapshot_1795711075059'; // Keep prior SECU-test edits across updates
+const STORAGE_KEY='EWAS_live_snapshot_1795714164650'; // Keep prior SECU-test edits across updates
 
 const SECU_REVIEW_STATES=['screened','retained_unverified','unresolved'];
 const EWAS_TAG_COLOR_SET=new Set(['orange','yellow','lightgreen','darkgreen']);
@@ -1340,6 +1378,8 @@ $('airportEditTimeZone').addEventListener('change',()=>{
 });
 
 let eraRoster=[];
+let preflightAirportCodes=[],preflightSourceKey=null;
+let preflightDeleted=new Set(),preflightMarked=new Set();
 let flightAirportComments=Object.create(null);
 let eraSourceKey=null;
 let eraEditingIcao=null;
@@ -1409,7 +1449,7 @@ $('aircraftConfirm').addEventListener('click',()=>{
  confirmedRouteSignature=r.key;
  $('aircraftConfirmDialog').close();selectAircraft(proposedAircraft);refreshAircraftBanner();
  renderPreflightAss();ewasScheduleFlightSave();
- if(!/^[A-Z]{4}$/.test(ex))window.alert('EX (Previous aerodrome) is missing or incomplete. ASS not determined until you enter a valid four-letter ICAO code in Preflight EX.');
+ if(!/^[A-Z]{4}$/.test(ex))window.alert('EX (Previous aerodrome) is missing or incomplete. ASS not determined until you enter a valid four-letter ICAO code in Init EX.');
 });
 $('aircraftCancel').addEventListener('click',()=>{
  $('aircraftConfirmDialog').close();$('route').value='';confirmedRouteSignature='';refreshAircraftBanner();parseRoute();
@@ -1665,15 +1705,68 @@ function routeOrder(codes,dep,dest){
 }
 
 let inflightAirportCodes=[];
+// The review source is the confirmed route/aircraft and the calculated airport list.
+// Marking does not remove an airport; only the explicit Delete action does.
+function syncPreflightSource(codes,route){
+ const key=selectedAircraft+'|'+route.key+'|'+codes.join(',');
+ if(key!==preflightSourceKey){preflightDeleted=new Set();preflightMarked=new Set();preflightSourceKey=key;$('preflightReviewStatus').textContent='';$('initCopyStatus').textContent='';}
+ preflightAirportCodes=codes;
+}
+function reviewedPreflightCodes(){return isAircraftConfirmed()?preflightAirportCodes.filter(code=>!preflightDeleted.has(code)):[];}
+function flightAirportRowData(code,lookup){
+ return lookup.get(code)||{icao:code,iata:'',aerodrome:permanentDb?.airportNames?.[code]||code,country:permanentDb?.airportCountries?.[code]||'–',klass:'',aoiRemarks:'',groupDestination:false,manual:false};
+}
+function updatePreflightSelection(){
+ $('preflightDelete').disabled=!preflightMarked.size||!isAircraftConfirmed();
+ $('preflightSelectedCount').textContent=isAircraftConfirmed()&&preflightMarked.size?preflightMarked.size+' marked for deletion':'';
+}
+function renderPreflightReview(){
+ const target=$('preflightRows');if(!target)return;
+ const codes=reviewedPreflightCodes();target.replaceChildren();
+ $('preflightCount').textContent='· '+codes.length+' airports';
+ $('copyPreflight').disabled=!codes.length;$('preflightCopyAirports').disabled=!codes.length;
+ updatePreflightSelection();
+ if(!codes.length){const empty=document.createElement('div');empty.className='era-empty';empty.textContent=isAircraftConfirmed()?'No airports remaining.':'Confirm aircraft under Init.';target.append(empty);return;}
+ const lookup=mergedEnrouteAirportMap(selectedAircraft),fragment=document.createDocumentFragment();
+ for(const code of codes){
+  const row=makeEnrouteAirportRow(flightAirportRowData(code,lookup),false,false,true);
+  row.dataset.indent='0';
+  const cell=airportCell(null,'preflight-check-cell');const check=document.createElement('input');check.type='checkbox';check.checked=preflightMarked.has(code);check.setAttribute('aria-label','Mark '+code+' for deletion');cell.append(check);row.insertBefore(cell,row.querySelector('.airport-cell.code'));
+  row.classList.toggle('preflight-marked',check.checked);
+  check.addEventListener('change',()=>{if(check.checked)preflightMarked.add(code);else preflightMarked.delete(code);row.classList.toggle('preflight-marked',check.checked);updatePreflightSelection();ewasScheduleFlightSave();});
+  makeAirportInfoRowInteractive(row,code,selectedAircraft,true);fragment.append(row);
+ }
+ target.append(fragment);
+}
+async function copyFlightAirports(codes,status){
+ if(!codes.length)return false;
+ const text=codes.join(', ');
+ try{
+  try{await navigator.clipboard.writeText(text);}catch(error){
+   const field=document.createElement('textarea');field.value=text;field.style.cssText='position:fixed;left:0;top:0;opacity:0';document.body.append(field);
+   try{field.select();if(!document.execCommand('copy'))throw Error('Copy failed');}finally{field.remove();}
+  }
+  status.textContent='Copied '+codes.length+' airports';return true;
+ }catch(error){status.textContent='Copy failed – copy manually';window.prompt('Copy airport list:',text);return false;}
+}
+$('preflightDelete').addEventListener('click',()=>{
+ if(!isAircraftConfirmed()||!preflightMarked.size)return;
+ const count=preflightMarked.size;for(const code of preflightMarked)preflightDeleted.add(code);
+ // Remove only the newly selected airports, preserving any existing Inflight edits.
+ eraRoster=eraRoster.filter(item=>!preflightMarked.has(item.icao));preflightMarked.clear();
+ renderPreflightReview();renderDepDest();renderERAs();$('preflightReviewStatus').textContent=count+' airport'+(count===1?'':'s')+' removed';ewasSaveFlight();
+});
+$('preflightCopyAirports').addEventListener('click',()=>copyFlightAirports(reviewedPreflightCodes(),$('preflightReviewStatus')));
+
 function parseRoute(){
   renderPreflightAss();
   const raw=$('route').value.trim();
   renderCoverageList();
-  if(!isAircraftConfirmed()){$('result').textContent='–';$('preflightResult').textContent='–';inflightAirportCodes=[];eraSourceKey=null;renderDepDest();renderERAs();return;}
+  if(!isAircraftConfirmed()){$('result').textContent='–';$('preflightResult').textContent='–';inflightAirportCodes=[];renderPreflightReview();renderDepDest();renderERAs();return;}
   const tokens=raw.toUpperCase().split(/[\s,;]+/).filter(Boolean);
   if(tokens.length<2){
     $('result').textContent='–';$('preflightResult').textContent='–';
-    inflightAirportCodes=[];renderDepDest();renderERAs();return;
+    inflightAirportCodes=[];renderPreflightReview();renderDepDest();renderERAs();return;
   }
   const {dep,dest}=getEndpoints(tokens);
   const wps=new Set(tokens.slice(1,-1).filter(t=>!(/^(DCT|NAT[A-Z0-9]*|PACOTS|AUSOTS|OTS|TRACK[A-Z0-9]*)$/.test(t)||/^[A-Z]{1,3}\d{1,4}[A-Z]?$/.test(t))));
@@ -1684,15 +1777,17 @@ function parseRoute(){
   for(const r of rules.comboRules){if(r.matchAirports.some(a=>dep===a||dest===a||wps.has(a))&&r.waypoints.some(w=>wps.has(w)))result.push(...r.airports)}
   for(const r of rules.waypointRules){if(r.waypoints.some(w=>wps.has(w)||w===dep||w===dest))result.push(...r.airports)}
   const inflight=routeOrder(result,dep,dest);
-  // Rule 1: only official AAL List 2 airports of the confirmed aircraft type,
-  // provided they are also in EWAS-Inflight. Do not force DEP/DEST/ALTN into Preflight.
+  // Rule 1 remains the basis; the review additionally includes DEST and all List 1 alternates.
   const aalAirports=new Set((rules.enrouteAal?.[selectedAircraft]||[]).map(row=>row.icao));
-  const preflight=rules.includeAalPreflight!==false?inflight.filter(code=>aalAirports.has(code)):[];
+  const alts=getList1DestinationAlternates(dest,selectedAircraft).filter(c=>validCode(c)&&c!==dep&&c!==dest);
+  const original=rules.includeAalPreflight!==false?inflight.filter(code=>aalAirports.has(code)):[];
+  const preflight=[...new Set([...original.filter(c=>c!==dest&&!alts.includes(c)),dest,...alts])].filter(validCode);
+  syncPreflightSource(preflight,getOFPRoute());
   $('result').textContent=inflight.join(', ')||'No airports selected by the active rules.';
   $('preflightResult').textContent=preflight.join(', ')||'No AAL airports from Inflight list.';
-  inflightAirportCodes=inflight.slice();renderDepDest();renderERAs();
+  inflightAirportCodes=inflight.slice();renderPreflightReview();renderDepDest();renderERAs();
 }
-$('addWaypoint').addEventListener('click',()=>{addWaypointRow();enableAllRowDrag();$('saveStatus').textContent='New waypoint rule – complete and save.'});$('addCombo').addEventListener('click',()=>{addComboRow();enableAllRowDrag();$('saveStatus').textContent='New combination – complete and save.'});$('parse').addEventListener('click',async()=>{try{if(!navigator.clipboard?.readText)throw new Error('Clipboard API unavailable');const text=await navigator.clipboard.readText();if(!text.trim()){alert('The clipboard is empty.');return;}$('route').value=text;aircraftRouteInput(true);}catch(e){$('route').focus();alert('Clipboard access is blocked by the browser. Paste the route into the field with Ctrl+V.');}});$('route').addEventListener('input',()=>aircraftRouteInput());$('saveRules').addEventListener('click',save);$('includeEndpoints').addEventListener('change',()=>{$('saveStatus').textContent='Changes not saved yet.'});$('includeDestinationAlternates').addEventListener('change',()=>{$('saveStatus').textContent='Changes not saved yet.'});$('includeSwiss').addEventListener('change',()=>{$('saveStatus').textContent='Changes not saved yet.'});$('addRule').addEventListener('click',()=>{const holder=$('ruleRows');const row=document.createElement('div');row.className='rule-row';row.innerHTML='<div><label>DEST</label><input class="dep-input" maxlength="4" placeholder="ICAO"></div><div><label>Alternates</label><input class="airports-input" placeholder="KBOS, CYHZ"></div>';const del=document.createElement('button');del.className='danger small delete';del.type='button';del.textContent='Remove';del.addEventListener('click',()=>{row.remove();$('saveStatus').textContent='Rule removed – please save.'});row.append(del);const hiddenName=document.createElement('input');hiddenName.type='hidden';hiddenName.className='subrule-name-input';row.append(hiddenName);holder.append(row);row.scrollIntoView({block:'nearest'});row.querySelector('.dep-input').focus();$('saveStatus').textContent='Neue Rule added – bitte ausfüllen und speichern.'});$('resetRules').addEventListener('click',()=>{if(!confirm('Replace all custom rules with the default rules?'))return;rules=defaults();persist();renderRules();renderCoverageList();parseRoute();$('saveStatus').textContent='Default rules restored.'});$('copy').addEventListener('click',async()=>{const t=$('result').textContent;if(t==='–')return;try{await navigator.clipboard.writeText(t)}catch(e){const x=document.createElement('textarea');x.value=t;document.body.append(x);x.select();document.execCommand('copy');x.remove()}});$('copyPreflight').addEventListener('click',async()=>{const t=$('preflightResult').textContent;if(t==='–')return;try{await navigator.clipboard.writeText(t)}catch(e){const x=document.createElement('textarea');x.value=t;document.body.append(x);x.select();document.execCommand('copy');x.remove()}});$('includeAalPreflight').addEventListener('change',()=>{$('saveStatus').textContent='Changes not saved yet.'});
+$('addWaypoint').addEventListener('click',()=>{addWaypointRow();enableAllRowDrag();$('saveStatus').textContent='New waypoint rule – complete and save.'});$('addCombo').addEventListener('click',()=>{addComboRow();enableAllRowDrag();$('saveStatus').textContent='New combination – complete and save.'});$('parse').addEventListener('click',async()=>{try{if(!navigator.clipboard?.readText)throw new Error('Clipboard API unavailable');const text=await navigator.clipboard.readText();if(!text.trim()){alert('The clipboard is empty.');return;}$('route').value=text;aircraftRouteInput(true);}catch(e){$('route').focus();alert('Clipboard access is blocked by the browser. Paste the route into the field with Ctrl+V.');}});$('route').addEventListener('input',()=>aircraftRouteInput());$('saveRules').addEventListener('click',save);$('includeEndpoints').addEventListener('change',()=>{$('saveStatus').textContent='Changes not saved yet.'});$('includeDestinationAlternates').addEventListener('change',()=>{$('saveStatus').textContent='Changes not saved yet.'});$('includeSwiss').addEventListener('change',()=>{$('saveStatus').textContent='Changes not saved yet.'});$('addRule').addEventListener('click',()=>{const holder=$('ruleRows');const row=document.createElement('div');row.className='rule-row';row.innerHTML='<div><label>DEST</label><input class="dep-input" maxlength="4" placeholder="ICAO"></div><div><label>Alternates</label><input class="airports-input" placeholder="KBOS, CYHZ"></div>';const del=document.createElement('button');del.className='danger small delete';del.type='button';del.textContent='Remove';del.addEventListener('click',()=>{row.remove();$('saveStatus').textContent='Rule removed – please save.'});row.append(del);const hiddenName=document.createElement('input');hiddenName.type='hidden';hiddenName.className='subrule-name-input';row.append(hiddenName);holder.append(row);row.scrollIntoView({block:'nearest'});row.querySelector('.dep-input').focus();$('saveStatus').textContent='Neue Rule added – bitte ausfüllen und speichern.'});$('resetRules').addEventListener('click',()=>{if(!confirm('Replace all custom rules with the default rules?'))return;rules=defaults();persist();renderRules();renderCoverageList();parseRoute();$('saveStatus').textContent='Default rules restored.'});$('copyPreflight').addEventListener('click',async()=>{if(await copyFlightAirports(reviewedPreflightCodes(),$('initCopyStatus'))){ewasSubSelection.live='preflight';activateEwasNavigation();renderPreflightReview();ewasSaveFlight();}});$('includeAalPreflight').addEventListener('change',()=>{$('saveStatus').textContent='Changes not saved yet.'});
 $('exportRules').addEventListener('click',()=>{try{const data=readEditor();const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download='route_alternate_regeln.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);$('saveStatus').textContent='Rules exported.'}catch(e){$('saveStatus').textContent='Error: '+e.message}});function importData(raw){const imported=normalize(JSON.parse(raw.replace(/^\uFEFF/,'')));rules=imported;updateAalAgeWarning();const stored=persist();renderRules();renderCoverageList();parseRoute();$('saveStatus').textContent=stored?'Rules imported successfully und lokal saved.':'Rules imported, but local storage is blocked. Please back up the JSON.'}
 function readFileCompat(file){return new Promise((resolve,reject)=>{const reader=new FileReader();reader.onload=()=>resolve(String(reader.result||''));reader.onerror=()=>reject(Error('Datei konnte nicht gelesen werden.'));reader.readAsText(file,'UTF-8')})}
 $('importRules').addEventListener('click',()=>$('importFile').click());
@@ -1742,7 +1837,7 @@ function buildExportHtml(source,data,colleague,stamp){
   .replace(/const STORAGE_KEY='[^']*';/,"const STORAGE_KEY='"+(colleague?'EWAS_live_snapshot_':'EWAS_editor_workspace_v14_0')+(colleague?stamp:'')+"';");
  if(!patched.includes(updatedDefault))throw Error('The current rules could not be embedded.');
  if(colleague){
-  patched=patched.replace('<title>EWAS 1.1.2 · Editor &amp; Live</title>','<title>EWAS 1.1.2 · Live</title>');
+  patched=patched.replace('<title>EWAS 1.1.3 · Editor &amp; Live</title>','<title>EWAS 1.1.3 · Live</title>');
   patched=patched.replace('<script>', '<script>window.EWAS_COLLEAGUE=true;');
   /* List 1 bleibt für die Berechnung intern erhalten. */
   patched=patched.replace(/\/\/ v9\.5: AAL importer[\s\S]*?(?=\/\/ EWAS 1.0.13 – ASS decision tree)/,'');
@@ -2360,8 +2455,8 @@ function renderLiveAalUploadDates(){ewasRefreshSecuReviewLabel();
 }
 const LIVE_DESCRIPTION_CONFIG=[
  ['depdest','DEST (ALTN)','tab-live-depdest','.era-description'],
- ['eras','ERAs','tab-live-eras','.era-description'],
- ['calcTto','Preflight · Time Over','tab-live-ofp','#preflightTimeOver .calc-help'],
+ ['eras','Inflight','tab-live-eras','.era-description'],
+ ['calcTto','Init · Time Over','tab-live-ofp','#preflightTimeOver .calc-help'],
  ['calcTemp','CALC · Temperature','tab-live-calc','.calc-card:nth-child(1) .calc-help'],
  ['calcRest','Rest & Function Time · Inflight Rest','tab-live-rest','.calc-rest > .calc-help']
 ];
@@ -2404,7 +2499,7 @@ function refreshLiveDescriptions(){
   const key=item[0],node=findLiveDescriptionNode(item);if(!node)continue;
   let content=rules.liveDescriptions?.[key]??LIVE_DESCRIPTION_DEFAULTS[key]??'';
   if(key==='depdest')content=content.replace('DEP/DEST from OFP Route','DEST from OFP Route');
-  if(key==='eras'&&content.startsWith('Suggested ERAs according ACFT and Route.'))content='Departure first. '+content;
+  if(key==='eras'&&(content.startsWith('Suggested ERAs according ACFT and Route.')||content.includes('excluding DEST and List 1 Destination Alternates')))content=LIVE_DESCRIPTION_DEFAULTS.eras;
   if(key==='depdest'||key==='eras'){
    // The aircraft label is also used by the route table renderers. NEVER
    // remove it when the user writes a description without {ACFT}.
@@ -2449,7 +2544,7 @@ function airportCell(value,kind,title){
  return div;
 }
 // Shared row renderer: Editor List 2 and Live ERAs intentionally use the same visual logic.
-function makeEnrouteAirportRow(airport,editable=false,editorUnified=false){
+function makeEnrouteAirportRow(airport,editable=false,editorUnified=false,compact=false){
  const klass=String(airport.klass||'').toUpperCase();
  const row=document.createElement('div');row.className='enroute-airport-row';row.setAttribute('role','row');
  row.dataset.icao=airport.icao;
@@ -2463,6 +2558,7 @@ function makeEnrouteAirportRow(airport,editable=false,editorUnified=false){
  const nameCell=airportCell(airport.aerodrome||'–','airport-name',airport.originalAerodrome&&airport.originalAerodrome!==airport.aerodrome?'AAL: '+airport.originalAerodrome:null);
 
  row.append(nameCell);row.append(airportCell(airport.country||'–','country'));
+ if(compact)return row;
  const aoi=String(airport.aoiRemarks||'').toUpperCase();
  const tags=getComputedAirportTags(airport.icao);
  const lt=airportCell(null,'local-time time-group-start');lt.dataset.airportLocalTime=airport.icao;
@@ -2542,18 +2638,18 @@ $('editorAirportSearch').addEventListener('input',renderEnrouteAal);$('editorAir
 // The live ERA roster is a temporary view; it does not write to rules, localStorage or the JSON.
 function renderDepDest(){
  const target=$('depdestRows');if(!target)return;
- if(!isAircraftConfirmed()){target.replaceChildren();$('depdestCount').textContent='· 0 airports';const x=document.createElement('div');x.className='era-empty';x.textContent=$('route').value.trim()?'Confirm aircraft to display airports.':'Enter an OFP route under Preflight.';target.append(x);return;}
+ if(!isAircraftConfirmed()){target.replaceChildren();$('depdestCount').textContent='· 0 airports';const x=document.createElement('div');x.className='era-empty';x.textContent=$('route').value.trim()?'Confirm aircraft to display airports.':'Enter an OFP route under Init.';target.append(x);return;}
  target.replaceChildren();
  const depdestAircraftLabel=$('depdestAircraft');if(depdestAircraftLabel)depdestAircraftLabel.textContent=selectedAircraft;
  const tokens=$('route').value.trim().toUpperCase().split(/[\s,;]+/).filter(Boolean);
  if(tokens.length<2){
   $('depdestCount').textContent='· 0 airports';
   const empty=document.createElement('div');empty.className='era-empty';
-  empty.textContent='Enter an OFP route under Preflight.';target.append(empty);return;
+  empty.textContent='Enter an OFP route under Init.';target.append(empty);return;
  }
  const {dep,dest}=getEndpoints(tokens);
  const alternates=getList1DestinationAlternates(dest,selectedAircraft);
- const codes=[...new Set([dest,...alternates])].filter(code=>validCode(code)&&code!==dep);
+ const codes=[...new Set([dest,...alternates])].filter(code=>validCode(code)&&code!==dep&&!preflightDeleted.has(code));
  $('depdestCount').textContent='· '+codes.length+' airports';
  const lookup=mergedEnrouteAirportMap(selectedAircraft);
  const fragment=document.createDocumentFragment();
@@ -2569,12 +2665,12 @@ function renderDepDest(){
  target.append(fragment);
 }
 function addEraAirport(code){
- if(!isAircraftConfirmed())return 'Confirm aircraft under Preflight first.';
+ if(!isAircraftConfirmed())return 'Confirm aircraft under Init first.';
  const tokens=$('route').value.trim().toUpperCase().split(/[\s,;]+/).filter(Boolean);
  const {dep,dest}=getEndpoints(tokens);
  if(tokens.length<2||!validCode(dep)||!validCode(dest)||dep===dest)return 'Enter a valid departure and destination first.';
  if(!validCode(code)||!mergedEnrouteAirportMap(selectedAircraft).has(code))return code+' is not in List 2 for '+selectedAircraft+'.';
- if([dep,dest,...getList1DestinationAlternates(dest,selectedAircraft)].includes(code))return code+' is already covered by ERAs or DEST (ALTN).';
+ if(code===dep)return code+' is the departure airport.';
  renderERAs();
  if(eraRoster.some(item=>item.icao===code))return code+' is already in the ERA list.';
  const hasCoords=c=>{const p=rules.airportCoordinates?.[c];return p&&Number.isFinite(p.lat)&&Number.isFinite(p.lon);};
@@ -2582,49 +2678,36 @@ function addEraAirport(code){
  const order=routeOrder([...eraRoster.map(item=>item.icao),code],dep,dest);
  const rank=order.indexOf(code);
  // Insert without undoing existing manual moves or indentation.
- const next=eraRoster.findIndex(item=>order.indexOf(item.icao)>rank);
+ const next=eraRoster.findIndex(item=>item.icao===dest||getList1DestinationAlternates(dest,selectedAircraft).includes(item.icao)||order.indexOf(item.icao)>rank);
  eraRoster.splice(next<0?eraRoster.length:next,0,{icao:code,indent:null});
  renderERAs();ewasScheduleFlightSave();return '';
 }
-$('eraCopyAirports').addEventListener('click',async()=>{
- const codes=Array.from($('erasRows').querySelectorAll('.enroute-airport-row[data-icao]'),row=>row.dataset.icao);
- if(!codes.length)return;
- const text=codes.join(', '),status=$('eraCopyStatus');
- try{
-  try{await navigator.clipboard.writeText(text);}catch(error){
-   const field=document.createElement('textarea');field.value=text;field.style.cssText='position:fixed;left:0;top:0;opacity:0';document.body.append(field);
-   try{field.select();if(!document.execCommand('copy'))throw Error('Copy failed');}finally{field.remove();}
-  }
-  status.textContent='Copied '+codes.length+' airports';
- }catch(error){status.textContent='Copy failed';window.prompt('Copy airport list:',text);}
-});
+$('eraCopyAirports').addEventListener('click',()=>copyFlightAirports(Array.from($('erasRows').querySelectorAll('.enroute-airport-row[data-icao]'),row=>row.dataset.icao),$('eraCopyStatus')));
 $('eraAddAirport').addEventListener('click',()=>{ $('eraAddIcao').value='';$('eraAddError').textContent='';$('eraAddDialog').showModal();$('eraAddIcao').focus(); });
 $('eraAddCancel').addEventListener('click',()=>$('eraAddDialog').close());
 $('eraAddForm').addEventListener('submit',event=>{event.preventDefault();const error=addEraAirport($('eraAddIcao').value.trim().toUpperCase());$('eraAddError').textContent=error;if(!error)$('eraAddDialog').close();});
 function renderERAs(){
  const target=$('erasRows');if(!target)return;
  $('eraCopyAirports').disabled=true;$('eraCopyStatus').textContent='';
- if(!isAircraftConfirmed()){target.replaceChildren();$('erasCount').textContent='· 0 airports';const x=document.createElement('div');x.className='era-empty';x.textContent=$('route').value.trim()?'Confirm aircraft to display airports.':'Enter an OFP route under Preflight.';target.append(x);return;}
+ if(!isAircraftConfirmed()){target.replaceChildren();$('erasCount').textContent='· 0 airports';const x=document.createElement('div');x.className='era-empty';x.textContent=$('route').value.trim()?'Confirm aircraft to display airports.':'Enter an OFP route under Init.';target.append(x);return;}
  const tokens=$('route').value.trim().toUpperCase().split(/[\s,;]+/).filter(Boolean);
  const endpoint=tokens.length>=2?getEndpoints(tokens):{dep:'',dest:''};
- const excluded=new Set([endpoint.dep,endpoint.dest,...getList1DestinationAlternates(endpoint.dest,selectedAircraft)]);
- const codes=inflightAirportCodes.filter(c=>validCode(c)&&c!=='ICAO'&&!excluded.has(c));
-
- const key=selectedAircraft+'|'+$('route').value.trim()+'|'+codes.join(',');
- // Recreate the roster only when the OFP route, aircraft or Inflight result changes.
- // Editing an ERA never changes the original Inflight codes or triggers this reset.
- if(key!==eraSourceKey){
-  eraRoster=codes.map(icao=>({icao,indent:null}));eraSourceKey=key;eraEditingIcao=null;
- }
+ const alts=getList1DestinationAlternates(endpoint.dest,selectedAircraft).filter(c=>validCode(c)&&c!==endpoint.dep&&c!==endpoint.dest);
+ const allCodes=[...new Set([...inflightAirportCodes,...preflightAirportCodes])].filter(c=>validCode(c)&&c!=='ICAO');
+ const middle=routeOrder(allCodes,endpoint.dep,endpoint.dest).filter(c=>c!==endpoint.dep&&c!==endpoint.dest&&!alts.includes(c));
+ const codes=[...new Set([...middle,endpoint.dest,...alts])].filter(validCode);
+ const key=selectedAircraft+'|'+getOFPRoute().key+'|'+codes.join(',');
+ if(key!==eraSourceKey){eraRoster=codes.filter(c=>!preflightDeleted.has(c)).map(icao=>({icao,indent:null}));eraSourceKey=key;eraEditingIcao=null;}
+ // Manual Add Airport may deliberately reintroduce a removed airport in Inflight only.
  target.replaceChildren();
  const erasAircraftLabel=$('erasAircraft');if(erasAircraftLabel)erasAircraftLabel.textContent=selectedAircraft;
- const displayRoster=validCode(endpoint.dep)?[{icao:endpoint.dep,indent:0,departure:true},...eraRoster]:eraRoster;
+ const displayRoster=validCode(endpoint.dep)&&!preflightDeleted.has(endpoint.dep)?[{icao:endpoint.dep,indent:0,departure:true},...eraRoster]:eraRoster;
  $('erasCount').textContent='· '+displayRoster.length+' airports';
  $('eraCopyAirports').disabled=!displayRoster.length;
  const warning=$('eraHoursOutdatedWarning');if(warning){const stale=displayRoster.map(item=>item.icao).filter(ewasHoursOutdated);warning.hidden=!stale.length;warning.textContent=stale.length?'Operating Hours outdated (> 1 year): '+stale.join(', '):'';}
  if(!displayRoster.length){
   const empty=document.createElement('div');empty.className='era-empty';
-  empty.textContent='Enter an OFP route under Preflight to populate the enroute alternates.';
+  empty.textContent='Enter an OFP route under Init to populate the enroute alternates.';
   target.append(empty);return;
  }
  const lookup=mergedEnrouteAirportMap(selectedAircraft);
@@ -2675,12 +2758,12 @@ function renderArptSearch(){
 $('arptSearchInput').addEventListener('input',renderArptSearch);
 document.querySelectorAll('[data-arpt-type]').forEach(button=>button.addEventListener('click',()=>{arptSearchType=button.dataset.arptType;renderArptSearch();}));
 
-function makeAirportInfoRowInteractive(row,icao,type=selectedAircraft){
+function makeAirportInfoRowInteractive(row,icao,type=selectedAircraft,commentOnly=false){
  row.tabIndex=0;row.classList.add('airport-info-row');
  const mark=document.createElement('span');mark.className='airport-comment-flag';mark.textContent='!';mark.title='Flight comment available';mark.setAttribute('aria-label','Flight comment available');mark.hidden=!flightAirportComments[icao]?.trim();row.querySelector('.airport-cell.code')?.append(mark);
  row.setAttribute('aria-label','Airport details '+icao);
- row.addEventListener('click',event=>{if(event.target.closest('button'))return;openEraAirportInfo(icao,type)});
- row.addEventListener('keydown',event=>{if(event.target===row&&(event.key==='Enter'||event.key===' ')){event.preventDefault();openEraAirportInfo(icao,type)}});
+ row.addEventListener('click',event=>{if(event.target.closest('button,input,label,.preflight-check-cell'))return;openEraAirportInfo(icao,type,commentOnly)});
+ row.addEventListener('keydown',event=>{if(event.target===row&&(event.key==='Enter'||event.key===' ')){event.preventDefault();openEraAirportInfo(icao,type,commentOnly)}});
 }
 function airportDetailHeading(icao){
  const a=mergedEditorAirportMap().get(icao)||{};
@@ -2697,13 +2780,15 @@ function airportDetailClock(icao){
  return 'LT '+local.text+' · UTC '+utc+' · '+ewasFormatUtcOffset(offset)+' · '+zone;
 }
 function airportSecurityLabel(color){return {orange:'Airport critical',yellow:'Airport surrounding critical',lightgreen:'City critical',darkgreen:'no threat'}[color]||'Not reviewed';}
-function openEraAirportInfo(icao,type=selectedAircraft){
+function openEraAirportInfo(icao,type=selectedAircraft,commentOnly=false){
  const data=rules.airportData?.[icao]||{},tags=getComputedAirportTags(icao),point=coordinateFor(icao);
  const target=$('eraAirportInfoContent');target.replaceChildren();
  const add=(label,value,color,wide=false)=>{const line=document.createElement('div');if(wide)line.className='info-wide';const key=document.createElement('strong');key.textContent=label;const body=document.createElement('span');body.className='info-value';if(color){const dot=document.createElement('span');dot.className='enroute-tag '+color;body.append(dot);}const val=document.createElement('span');val.textContent=value;body.append(val);line.append(key,body);target.append(line);return body;};
  const section=title=>{const h=document.createElement('h4');h.textContent=title;target.append(h);};
+ if(!commentOnly){
  const first=document.createElement('div');first.className='info-wide info-first-row';target.append(first);
  for(const [label,value] of [['AAL',airportDetailClasses(icao).map(([t,k])=>t+': '+k).join(' · ')],['RWY',data.ldaM!=null?data.ldaM+' m':'—'],['Coordinates',point?formatLatitude(point.lat)+' · '+formatLongitude(point.lon):'—']]){const span=document.createElement('span');const strong=document.createElement('strong');strong.textContent=label+': ';span.append(strong,document.createTextNode(value));first.append(span);}
+ }
  const commentLabel=document.createElement('label');commentLabel.className='info-wide airport-flight-comment';commentLabel.textContent='Flight comment';
  const comment=document.createElement('textarea');comment.rows=2;comment.placeholder='Add a comment for this flight…';comment.value=flightAirportComments[icao]||'';commentLabel.append(comment);target.append(commentLabel);
  comment.addEventListener('input',()=>{
@@ -2711,6 +2796,7 @@ function openEraAirportInfo(icao,type=selectedAircraft){
   document.querySelectorAll('#tab-live .airport-info-row').forEach(row=>{if(row.dataset.icao===icao){const flag=row.querySelector('.airport-comment-flag');if(flag)flag.hidden=!flightAirportComments[icao];}});
   ewasScheduleFlightSave();
  });
+ if(!commentOnly){
  section('Operating Hours');add('Local time · UTC offset',airportDetailClock(icao),null,true);
  add('Last updated','Operating Hours last updated '+ewasDateLabel(ewasHoursDate(icao))+(ewasHoursOutdated(icao)?' · OUTDATED':''),null,true);
  for(const kind of EWAS_HOURS_KINDS){const w=ewasAirportTimeWindow(icao,kind)||{},from=ewasTimeField(w.from),to=ewasTimeField(w.to);const value=w.h24?'H24':from&&to?from+'–'+to+' LT'+(w.or?' · outside hours O/R':''):w.or?'O/R':'—';add(kind==='OPS'?'OPS/RFF':kind==='CUST'?'CUSTOM':kind,value,ewasAirportTimeStatus(icao,kind).color);}
@@ -2718,12 +2804,15 @@ function openEraAirportInfo(icao,type=selectedAircraft){
  add('CITY',data.cityPopulation!=null?formatCityPopulation(data.cityPopulation):'—',tags.CITY);
  add('ARPT',data.paxPerDay!=null?Number(data.paxPerDay).toLocaleString('de-CH')+' PAX/day':'—',tags.ARPT);
  const lhg=secuLhg(icao),acft=data.tagMode==='ACFT',value=lhg?'LHG':acft?data.acft||'—':data.airline||'—';const body=add('ACFT',value);if(value!=='—')body.lastElementChild.className='flight-tile '+(lhg?'lhg-tile':'airline-tile');
- $('eraAirportInfoTitle').textContent=airportDetailHeading(icao);if(!$('eraAirportInfoDialog').open)$('eraAirportInfoDialog').showModal();
+ }
+ const dialog=$('eraAirportInfoDialog');dialog.classList.toggle('comment-only',commentOnly);
+ $('eraAirportInfoTitle').textContent=airportDetailHeading(icao);if(!dialog.open)dialog.showModal();
+ $('eraAirportInfoClose').focus({preventScroll:true});
 }
 function removeEraWithConfirmation(icao){
  const index=eraRoster.findIndex(item=>item.icao===icao);
  if(index<0)return;
- if(!window.confirm('Remove '+icao+' from the current ERA list?'))return;
+ if(!window.confirm('Remove '+icao+' from the current Inflight list?'))return;
  eraRoster.splice(index,1);
  if($('eraAirportInfoDialog').open)$('eraAirportInfoDialog').close();
  eraEditingIcao=null;renderERAs();ewasScheduleFlightSave();
@@ -3558,7 +3647,7 @@ function ewasCaptureFlight(){
  const route=getOFPRoute();
  return {schema:1,savedAt:Date.now(),routeText:$('route').value,aircraft:selectedAircraft,
   aircraftConfirmed:!!(route&&isAircraftConfirmed()),
-  fields,airportComments:{...flightAirportComments},
+  fields,airportComments:{...flightAirportComments},preflightSource:preflightSourceKey,preflightMarked:[...preflightMarked],preflightDeleted:[...preflightDeleted],
   functionRoles:{cmd:$('calcFuncCmd').checked,rp:$('calcFuncRp').checked,fo:$('calcFuncFo').checked},
   liveTab:ewasSubSelection.live,eraSource:eraSourceKey,eraRoster:route&&isAircraftConfirmed()?eraRoster.map(({icao,indent})=>({icao,indent})):[]};
 }
@@ -3610,17 +3699,32 @@ function ewasRestoreFlight(){
   if(route&&state.aircraftConfirmed)confirmedRouteSignature=route.key;
   refreshAircraftBanner();
   parseRoute(); // rebuild all calculated results with the current embedded AAL/rules
-  if(isAircraftConfirmed()&&state.eraSource===eraSourceKey&&Array.isArray(state.eraRoster)){
-   const allowed=new Set([...eraRoster.map(x=>x.icao),...mergedEnrouteAirportMap(selectedAircraft).keys()]);
-   const excluded=new Set([route.dep,route.dest,...getList1DestinationAlternates(route.dest,selectedAircraft)]);
-   const seen=new Set();
-   if(state.eraRoster.every(x=>x&&validCode(x.icao)&&allowed.has(x.icao)&&!excluded.has(x.icao)&&!seen.has(x.icao)&&[null,0,1,2].includes(x.indent)&&seen.add(x.icao))){eraRoster=state.eraRoster.map(({icao,indent})=>({icao,indent}));renderERAs();}
+  if(isAircraftConfirmed()&&state.preflightSource===preflightSourceKey){
+   const allowed=new Set(preflightAirportCodes);
+   preflightDeleted=new Set((Array.isArray(state.preflightDeleted)?state.preflightDeleted:[]).filter(c=>allowed.has(c)));
+   preflightMarked=new Set((Array.isArray(state.preflightMarked)?state.preflightMarked:[]).filter(c=>allowed.has(c)&&!preflightDeleted.has(c)));
+   renderPreflightReview();renderDepDest();renderERAs();
+  }
+  if(isAircraftConfirmed()&&Array.isArray(state.eraRoster)){
+   const oldExcluded=new Set([route.dep,route.dest,...getList1DestinationAlternates(route.dest,selectedAircraft)]);
+   const oldCodes=inflightAirportCodes.filter(c=>validCode(c)&&c!=='ICAO'&&!oldExcluded.has(c));
+   const legacyKey=selectedAircraft+'|'+$('route').value.trim()+'|'+oldCodes.join(',');
+   const legacy=!state.preflightSource&&state.eraSource===legacyKey;
+   if(state.eraSource===eraSourceKey||legacy){
+    const allowed=new Set([...eraRoster.map(x=>x.icao),...mergedEnrouteAirportMap(selectedAircraft).keys()]);
+    const seen=new Set();
+    if(state.eraRoster.every(x=>x&&validCode(x.icao)&&allowed.has(x.icao)&&x.icao!==route.dep&&!seen.has(x.icao)&&[null,0,1,2].includes(x.indent)&&seen.add(x.icao))){
+     const restored=state.eraRoster.map(({icao,indent})=>({icao,indent}));
+     if(legacy)restored.push(...eraRoster.filter(x=>!seen.has(x.icao)&&!oldCodes.includes(x.icao)));
+     eraRoster=restored;renderERAs();
+    }
+   }
   }
   computeTtot();computeInflightRest();
   if($('calcCelsius').value.trim())computeTemperature('c');
   else if($('calcFahrenheit').value.trim())computeTemperature('f');
   renderPreflightAss();
-  if(['ofp','ewas','depdest','eras','arpt','rest','calc'].includes(state.liveTab)){
+  if(['ofp','preflight','ewas','depdest','eras','arpt','rest','calc'].includes(state.liveTab)){
    ewasSubSelection.live=state.liveTab==='ewas'?'ofp':state.liveTab;activateEwasNavigation();
   }
   if(typeof state.savedAt==='number'&&Number.isFinite(state.savedAt)){
@@ -3639,7 +3743,7 @@ function ewasNewFlight(){
  ewasFlightRestoreRunning=true;
  try{
   clearTimeout(aircraftInputTimeout);aircraftInputTimeout=null;
-  $('route').value='';confirmedRouteSignature='';selectedAircraft='A330';eraRoster=[];eraSourceKey=null;eraEditingIcao=null;flightAirportComments=Object.create(null);
+  $('route').value='';confirmedRouteSignature='';selectedAircraft='A330';eraRoster=[];eraSourceKey=null;eraEditingIcao=null;flightAirportComments=Object.create(null);preflightAirportCodes=[];preflightSourceKey=null;preflightMarked.clear();preflightDeleted.clear();$('preflightReviewStatus').textContent='';$('initCopyStatus').textContent='';
   ewasAirportUtcManual=false;ewasAirportUtcHHMM='';ewasSyncAirportTimeControls();
   for(const id of EWAS_FLIGHT_INPUTS)if($(id))$(id).value='';
   for(const id of ['calcFuncCmd','calcFuncRp','calcFuncFo'])$(id).checked=false;
